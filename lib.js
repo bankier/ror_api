@@ -37,6 +37,14 @@ function createForm(filters, $) {
 		return tableTag;
 	}
 	
+	function buildSelect(name, option_list) {
+		var selectTag = $('<select/>').attr('name', name);
+		$(option_list).each(function(idx) {
+			selectTag.append($('<option/>').val($(this)[0]).text($(this)[1]));
+		});
+		return selectTag;
+	}
+	
 	function buildLi(label, name) {
 		var liTag = $('<li/>');
 		liTag.append($('<strong/>').text(label));
@@ -48,7 +56,7 @@ function createForm(filters, $) {
 		var ulTag = $('<ul/>').addClass('input-set');
 		var liTag;
 		var name;
-		$(element_list).each(function(idx){
+		$(element_list).each(function(idx) {
 			name = prefix + 'liczba-' + $(this)[0];
 			liTag = buildLi($(this)[1], name);
 			name = prefix + 'kwota-' + $(this)[0];
@@ -76,6 +84,10 @@ function createForm(filters, $) {
 	
 	trTag = buildTr('Funkcjonalności karty',
 		buildCheckboxList('funkcjonalnosci_karty-', filters['funkcjonalnosci_kart']));
+	tableTag.append(trTag);
+	
+	trTag = buildTr('Ilu kart potrzebujesz?',
+		buildSelect('liczba_kart', [[1, 1], [2, 2]]));
 	tableTag.append(trTag);
 	
 	trTag = buildTr('Ilu wypłat z bankomatów dokonujesz miesięcznie?',
@@ -109,7 +121,7 @@ function submitForm(form, event, $) {
 		tableTag.append(buildTr('sdf', 'asd'));
 		var target = $('#' + readVar('result'));
 		target.html('').children().remove();
-		target.append($('<pre/>').append(data.message));
+		target.append($('<pre/>').append(data.result));
 	}
 	
 	$.getJSON(main_url + '/ror/oblicz/?' + form.serialize() + '&jsonp_callback=?', procesForm);
@@ -143,7 +155,7 @@ var main_url = 'http://calc.api.django.bankier.pl';
 	var scriptTag = document.createElement('script');
 	scriptTag.type = 'text/javascript';
 	scriptTag.src = 'jquery.min.js';
-	// scriptTag.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/' + scriptTag.src;
+	scriptTag.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/' + scriptTag.src;
 	scriptTag.onload = rorInit;
 	s.parentNode.insertBefore(scriptTag, s);
 })();
