@@ -124,7 +124,7 @@ function submitForm(form, event, $) {
 		target.append($('<pre/>').append(data.result));
 	}
 	
-	$.getJSON(main_url + '/ror/oblicz/?' + form.serialize() + '&jsonp_callback=?', procesForm);
+	$.getJSON(_bankier_ror_main_url + '/ror/oblicz/?' + form.serialize() + '&jsonp_callback=?', procesForm);
 }
 
 function readVar(key) {
@@ -136,14 +136,14 @@ function readVar(key) {
 	return '';
 }
 
-// var main_url = 'http://127.0.0.1:8210';
-var main_url = 'http://calc.api.django.bankier.pl';
+// var _bankier_ror_main_url = 'http://127.0.0.1:8210';
+var _bankier_ror_main_url = 'http://calc.api.django.bankier.pl';
 
 (function() {
 	function rorInit() {
 		var $ = jQuery.noConflict(true);
 		$.getJSON(
-			main_url + '/ror/filtry/' +
+			_bankier_ror_main_url + '/ror/filtry/' +
 			'?user=' + readVar('user') +
 			'&amp;timestamp=' + readVar('timestamp') +
 			'&amp;hash=' + readVar('hash') +
