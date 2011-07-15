@@ -1,9 +1,13 @@
 function createForm(filters, $) {
 	function buildCheckboxList(prefix, element_list) {
 		var box = $('<div/>').addClass('input-set');
+		var name;
+		var divTag;
 		$(element_list).each(function(idx){
-			var inputTag = $('<input/>').attr('type', 'checkbox').attr('name', prefix + $(this)[0]);
-			var divTag = $('<div/>').text($(this)[1]).prepend(inputTag);
+			name = prefix + $(this)[0];
+			divTag = $('<div/>');
+			divTag.append($('<input/>').attr('type', 'checkbox').attr('name', name).attr('id', 'id_' + name));
+			divTag.append($('<label/>').attr('for', 'id_' + name).text($(this)[1]));
 			box.append(divTag);
 		});
 		return box;
