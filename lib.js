@@ -18,7 +18,7 @@ function createForm(filters, $) {
 	
 	function buildTr(label, data) {
 		var trTag = $('<tr/>');
-		trTag.append($('<th/>').append($('<label/>').text(label)));
+		trTag.append($('<th/>').append($('<label/>').html(label)));
 		trTag.append($('<td/>').append(data));
 		return trTag;
 	}
@@ -90,7 +90,7 @@ function createForm(filters, $) {
 		buildSelect('liczba_kart', [[1, 1], [2, 2]]));
 	tableTag.append(trTag);
 	
-	trTag = buildTr('Ilu wypłat z bankomatów dokonujesz miesięcznie?',
+	trTag = buildTr('Ilu wypłat z&nbsp;bankomatów dokonujesz miesięcznie?',
 		buildAtmSet('wyplaty-', filters['typy_bankomatow']));
 	tableTag.append(trTag);
 	
