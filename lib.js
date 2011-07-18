@@ -113,19 +113,27 @@ function createForm(filters, $) {
 function submitForm(form, event, $) {
 	event.preventDefault();
 	
-	function buildTr(label, data) {
+	function buildTr(ror) {
 		var trTag = $('<tr/>');
-		trTag.append($('<th/>').append($('<label/>').text(label)));
-		trTag.append($('<td/>').append(data));
+		var thTag = $('<th/>');
+		thTag.append($('<div>').text(ror.rachunek.bank));
+		thTag.append($('<div>').text(ror.rachunek.nazwa));
+		trTag.append(thTag);
+		trTag.append($('<td/>').text(ror.oplaty_roczne + ' zł'));
 		return trTag;
 	}
 	
 	function procesForm(data) {
-		var tableTag = $('<table/>');
-		tableTag.append(buildTr('sdf', 'asd'));
 		var target = $('#' + readVar('result'));
+		var tableTag = $('<table/>');
+		var trTag;
+		// alert(data['result'].length);
+		$(data.result).each(function(idx) {
+			trTag = buildTr(this);
+			tableTag.append(trTag);
+		});
 		target.html('').children().remove();
-		target.append($('<pre/>').append(data.result));
+		target.append(tableTag);
 	}
 	
 	$.getJSON(_bankier_ror_main_url + '/ror/oblicz/?' + form.serialize() + '&jsonp_callback=?', procesForm);
