@@ -149,9 +149,9 @@ var _bankier_ror_main_url = 'http://calc.api.django.bankier.pl';
 		$.getJSON(
 			_bankier_ror_main_url + '/ror/filtry/' +
 			'?user=' + readVar('user') +
-			'&amp;timestamp=' + readVar('timestamp') +
-			'&amp;hash=' + readVar('hash') +
-			'&amp;jsonp_callback=?',
+			'&timestamp=' + readVar('timestamp') +
+			'&hash=' + readVar('hash') +
+			'&jsonp_callback=?',
 			function(data) {createForm(data, $)}
 		);
 	}
